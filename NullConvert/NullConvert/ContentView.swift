@@ -31,8 +31,7 @@ struct ContentView: View {
     
     @FocusState private var textFieldFocused : Bool
     
-    //Minor change
-
+    
     func getConversionUnitValue(unit: PressureOptions) -> Double {
         switch unit {
         case .torr:
