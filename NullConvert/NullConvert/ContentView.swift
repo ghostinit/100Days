@@ -8,7 +8,12 @@
 import SwiftUI
 
 enum PressureOptions: String, CaseIterable {
-    case torr, mtorr, bar, psi, pascals, kilopascals
+    case torr = "torr",
+         mtorr = "mTorr",
+         bar = "barg",
+         psi = "psig",
+         pascals = "pa",
+         kilopascals = "kPa"
 }
 
 struct ContentView: View {
@@ -50,22 +55,22 @@ struct ContentView: View {
                         .focused($textFieldFocused)
                     Picker("Units", selection: $inputPressureSelection) {
                         ForEach(PressureOptions.allCases, id: \.self) { option in
-                            Text(option.rawValue.capitalized)
+                            Text(option.rawValue)
                         }
                     }
-                    //.pickerStyle(.segmented)
+                    .pickerStyle(.segmented)
                 }
                 Section("Output") {
                     Text("\(inputToMilliTorr)")
                     Picker("Units", selection: $outputPressureSelection) {
                         ForEach(PressureOptions.allCases, id: \.self) { option in
-                            Text(option.rawValue.capitalized)
+                            Text(option.rawValue)
                         }
                     }
-                    //.pickerStyle(.segmented)
+                    .pickerStyle(.segmented)
                 }
                 Section("Converted Value") {
-                    Text("\(convertedPressure) \(outputPressureSelection.rawValue.capitalized)")
+                    Text("\(convertedPressure) \(outputPressureSelection.rawValue)")
                 }
             }
             .navigationTitle("NullConvert")
