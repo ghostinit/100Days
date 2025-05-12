@@ -99,7 +99,7 @@ struct ContentView: View {
                     .pickerStyle(.segmented)
                 }
                 Section("Converted Value") {
-                    Text("\(convertedPressure.formatted(.number.precision(.fractionLength(2))) \(outputPressureSelection.rawValue)")
+                    Text("\(convertedPressure.formatted(.number.precision(.fractionLength(2)))) \(outputPressureSelection.rawValue)")
                 }
             }
             .navigationTitle("NullConvert")
