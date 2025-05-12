@@ -17,13 +17,13 @@ enum PressureOptions: String, CaseIterable {
 }
 
 struct ContentView: View {
-    let conversionDict: [PressureOptions: Double] =
-    [.torr: 1000.0,
-     .mtorr: 1.0,
-     .bar: 750061.673,
-     .psi: 51714.9,
-     .pascals: 7.50062,
-     .kilopascals: 7500.62]
+    // let conversionDict: [PressureOptions: Double] =
+    // [.torr: 1000.0,
+    //  .mtorr: 1.0,
+    //  .bar: 750061.673,
+    //  .psi: 51714.9,
+    //  .pascals: 7.50062,
+    //  .kilopascals: 7500.62]
     
     @State private var inputPressure : Double = 0
     @State private var inputPressureSelection : PressureOptions = .torr
@@ -31,16 +31,44 @@ struct ContentView: View {
     
     @FocusState private var textFieldFocused : Bool
     
+    func getConversionUnitValue(unit: PressureOptions) -> Double {
+        switch unit {
+        case .torr:
+            return 1000.0
+
+        case .mtorr:
+            return 1.0
+
+        case .bar:
+            return 750061.673
+
+        case .psi:
+            return 51714.9
+
+        case .pascals:
+            return 7.50062
+
+        case .kilopascals:
+            return 7500.62
+        }
+    }
+
     var inputToMilliTorr : Double {
-        let inputConversionFactor = conversionDict[inputPressureSelection]
-        let inputToMilliTorr = inputPressure * inputConversionFactor! // Force unwrap cause I know it is there
+        //let inputConversionFactor = conversionDict[inputPressureSelection]
+        //let inputToMilliTorr = inputPressure * inputConversionFactor! // Force unwrap cause I know it is there
+
+        let inputConversionFactor = getConversionUnitValue(inputPressureSelection)
+        let inputToMilliTorr = inputPressure * inputConversionFactor
         return inputToMilliTorr
     }
     
     var convertedPressure : Double {
         
-        let outputConversionFactor = conversionDict[outputPressureSelection]
-        let milliTorrToOutput = inputToMilliTorr / (outputConversionFactor!)
+        // let outputConversionFactor = conversionDict[outputPressureSelection]
+        // let milliTorrToOutput = inputToMilliTorr / (outputConversionFactor!)
+
+        let outputConversionFactor = getConversionUnitValue(outputPressureSelection)
+        let milliTorrToOutput = inputToMilliTorr / outputConversionFactor
         return milliTorrToOutput
     }
     
@@ -70,7 +98,7 @@ struct ContentView: View {
                     .pickerStyle(.segmented)
                 }
                 Section("Converted Value") {
-                    Text("\(convertedPressure) \(outputPressureSelection.rawValue)")
+                    Text("\(convertedPressure.formatted(.number.precision(.fractionLength(2))) \(outputPressureSelection.rawValue)")
                 }
             }
             .navigationTitle("NullConvert")
