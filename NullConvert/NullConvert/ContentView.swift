@@ -58,7 +58,7 @@ struct ContentView: View {
         //let inputConversionFactor = conversionDict[inputPressureSelection]
         //let inputToMilliTorr = inputPressure * inputConversionFactor! // Force unwrap cause I know it is there
 
-        let inputConversionFactor = getConversionUnitValue(inputPressureSelection)
+        let inputConversionFactor = getConversionUnitValue(unit: inputPressureSelection)
         let inputToMilliTorr = inputPressure * inputConversionFactor
         return inputToMilliTorr
     }
@@ -68,7 +68,7 @@ struct ContentView: View {
         // let outputConversionFactor = conversionDict[outputPressureSelection]
         // let milliTorrToOutput = inputToMilliTorr / (outputConversionFactor!)
 
-        let outputConversionFactor = getConversionUnitValue(outputPressureSelection)
+        let outputConversionFactor = getConversionUnitValue(unit: outputPressureSelection)
         let milliTorrToOutput = inputToMilliTorr / outputConversionFactor
         return milliTorrToOutput
     }
@@ -90,7 +90,6 @@ struct ContentView: View {
                     .pickerStyle(.segmented)
                 }
                 Section("Output") {
-                    Text("\(inputToMilliTorr)")
                     Picker("Units", selection: $outputPressureSelection) {
                         ForEach(PressureOptions.allCases, id: \.self) { option in
                             Text(option.rawValue)
